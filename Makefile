@@ -10,9 +10,11 @@ LIB = yojson
 
 PACKAGES = yojson ocamlfind
 
-OCAMLFLAGS = -I $(OBJ_DIR) -package $(LIB)
+OCAMLFLAGS = -package $(LIB) -I $(SRC_DIR) -I $(OBJ_DIR)
 
-FILES = test \
+FILES = \
+	types \
+	main \
 
 SRC = $(FILES:%=$(SRC_DIR)/%.ml)
 OBJ = $(FILES:%=$(OBJ_DIR)/%.cmo)
@@ -37,10 +39,16 @@ fclean: clean
 re: fclean all
 
 install:
-	opam init --no-setup
-	opam switch create $(NAME) 5.4.1
-	eval $(opam env)
-	opam install -y $(PACKAGES)
+	opam init --no-setup 
+	opam switch create $(NAME) 5.4.1 || true
+	opam install -y $(PACKAGES) || true
+	@echo "Run: eval \$$(opam env)"
+
+dev :
+	opam init --auto-setup
+	opam switch create $(NAME) 5.4.1 || true
+	opam install -y $(PACKAGES) || true
+	opam install -y ocamlformat dot-merlin-reader
 
 uninstall:
 	opam switch remove -y $(NAME)
