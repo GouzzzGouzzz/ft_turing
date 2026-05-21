@@ -9,7 +9,7 @@ https://www.youtube.com/watch?v=MUcka_SvhLw&list=PLre5AT9JnKShBOPeuiD9b-I4XROIJh
 For wsl, open wsl and open vscode through terminal
 
 Install vscode:
-
-Make dev
-ocaml platform extensions
-select sandbox : current switch (ft_turing)
+    Make dev
+    VsCode extensions : OCamlPlatform
+    Select the correct switch in sandbox settings
+    You might want to Restart Language Server in vscode (ctrl + shift + P -> Restart Language Server)

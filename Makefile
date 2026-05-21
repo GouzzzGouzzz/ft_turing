@@ -48,7 +48,7 @@ dev :
 	opam init --auto-setup
 	opam switch create $(NAME) 5.4.1 || true
 	opam install -y $(PACKAGES) || true
-	opam install -y ocamlformat dot-merlin-reader
+	opam install -y ocamlformat dot-merlin-reader ocaml-lsp-server
 
 uninstall:
 	opam switch remove -y $(NAME)
