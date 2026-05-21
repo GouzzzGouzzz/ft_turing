@@ -18,10 +18,7 @@ type machine =
   states : string list;
   initial : string;
   finals : string list;
-  (*
   transitions : (string * transition list) list;
-*)
-
 }
 
 
