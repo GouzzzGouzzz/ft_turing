@@ -1,3 +1,5 @@
 S src
 B obj
+# Add module lookup in obj/ directory (resolve module name in VsCode)
+FLG -I obj
 PKG yojson
