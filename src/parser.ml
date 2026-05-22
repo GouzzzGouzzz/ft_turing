@@ -15,12 +15,21 @@ let get_each_transition json =
       read = json |> Yojson.Safe.Util.member "read" |> Yojson.Safe.Util.to_string |> get_char_json;
       to_state = json |> Yojson.Safe.Util.member "to_state" |> Yojson.Safe.Util.to_string;
       write = json |> Yojson.Safe.Util.member "write" |> Yojson.Safe.Util.to_string |> get_char_json;
-      action = json |> Yojson.Safe.Util.to_string |> get_action;
+      action = json |> Yojson.Safe.Util.member "action" |> Yojson.Safe.Util.to_string |> get_action;
     } in transition
 
 
+let get_thing (key, value) =
+  let transition = 
+    value
+    |> Yojson.Safe.Util.to_list
+    |> List.map get_each_transition
+  in
+  (key, transition)
+
+
 let get_transitions json =
-  json |> Yojson.Safe.Util.to_assoc |> List.map get_each_transition
+  json |> Yojson.Safe.Util.to_assoc |> List.map get_thing
 
 let create_machine json = 
   let machine : Types.machine = 
@@ -31,5 +40,5 @@ let create_machine json =
       states = json |> Yojson.Safe.Util.member "states" |> Yojson.Safe.Util.to_list |> List.map Yojson.Safe.Util.to_string;
       initial = json |> Yojson.Safe.Util.member "initial" |> Yojson.Safe.Util.to_string;
       finals = json |> Yojson.Safe.Util.member "finals" |> Yojson.Safe.Util.to_list |> List.map Yojson.Safe.Util.to_string;
-      transitions = json |> Yojson.Safe.Util.member "transitions" |> List.map get_transitions
+      transitions = json |> Yojson.Safe.Util.member "transitions" |> get_transitions
     } in  machine

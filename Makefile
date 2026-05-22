@@ -15,6 +15,7 @@ OCAMLFLAGS = -package $(LIB) -I $(SRC_DIR) -I $(OBJ_DIR)
 FILES = \
 	types \
 	parser \
+	debug \
 	main \
 
 SRC = $(FILES:%=$(SRC_DIR)/%.ml)
