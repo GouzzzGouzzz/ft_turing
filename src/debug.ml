@@ -13,7 +13,7 @@ let print_transition (transi : Types.transition) =
   Printf.printf "  Write: %c\n" transi.write;
   print_action transi.action
 
-let rec print_state (transitions : ( _ * _ list) list) =
+let rec print_state (transitions : ( _ * Types.transition list) list) =
   match transitions with
   | (state, transi) :: tail ->
       Printf.printf "---------\n";

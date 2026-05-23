@@ -1,4 +1,10 @@
+Validation du json :
+    Your program must detect and reject ill formated or invalid machine descriptions
+    and inputs, with a relevant error message. This means that your program must
+    never crash for any reason
+enlever "failwith" ?
 
-apprendre le ocaml
+Script test (lance tout les test/x.json)
 
-
+Parse/ envoyer erreurs a l'exec todo:
+    check que les to_state defini existe (to_state in states)

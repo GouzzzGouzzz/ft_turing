@@ -1,9 +1,3 @@
-let delete_newline str =
-  String.map (function '\n' -> ' ' | x -> x) str
-
-let print_error str =
-  Printf.printf "Ft_turing: Error: %s\n" (delete_newline str)
-
 
 let main () =
   if Parser.parse_option () = true then (
@@ -14,10 +8,14 @@ let main () =
     try
       let json = Yojson.Safe.from_file filename in
       let machine = Parser.create_machine json in
+      Parser.validate_fields machine;
       Debug.print_machine machine
     with
-    | Sys_error msg  -> print_error msg;
-    | Yojson.Json_error msg-> print_error msg;
-  ) 
+    | Sys_error msg  -> Print.print_error msg;
+    | Yojson.Json_error msg-> Print.print_error msg;
+    | Parser.Parse_error msg -> Print.print_error msg;
+    | Parser.Validation_error msg -> Print.print_error msg;
+    | Yojson.Safe.Util.Type_error (msg, json) -> Print.print_error ("unhandled (JSON FORMATING): " ^ msg);
+  )
 
 let () = main ()

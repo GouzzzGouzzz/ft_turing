@@ -14,6 +14,7 @@ OCAMLFLAGS = -package $(LIB) -I $(SRC_DIR) -I $(OBJ_DIR)
 
 FILES = \
 	types \
+	print \
 	parser \
 	debug \
 	main \
