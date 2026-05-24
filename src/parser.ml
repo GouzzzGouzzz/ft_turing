@@ -73,13 +73,19 @@ let parse_option () : bool =
     -h, --help show this help message and exit\n";
     true
   )
-  else if Array.length Sys.argv < 3  then ( 
+  else if Array.length Sys.argv < 3 || Array.length Sys.argv > 3   then ( 
     Printf.printf "Usage: %s <file.json> <input>\n" Sys.argv.(0);
     true
   )
   else
     false
 
+
+let input str alphabet =
+  String.iter (fun x -> 
+    if not (List.mem x alphabet) 
+    then raise (Parse_error (p_error ^ "invalid input, only alphabet char are allowed"))) str;
+  str
 
 (* Data validation of fields parsed *)
 
