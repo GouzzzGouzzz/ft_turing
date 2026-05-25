@@ -125,7 +125,12 @@ let validate_finals states finals =
     then raise (Validation_error (v_error ^ "Finals states is not defined in states list"))
   
 
+let validate_name name = 
+  if String.length name > 60 
+    then raise (Validation_error (v_error ^ "Name is too loog (max 60)"))
+
 let validate_fields (machine : Types.machine) =
+  validate_name machine.name;
   validate_alphabet machine.blank machine.alphabet machine.transitions;
   validate_initial machine.initial machine.states machine.transitions;
   validate_states machine.states machine.transitions;
