@@ -40,3 +40,14 @@ let print_machine (machine : Types.machine) =
   Printf.printf "\n";
   Printf.printf "Transitions:\n";
   print_state machine.transitions
+
+
+let print_tape (tape : Types.tape) =
+  Printf.printf "Tape -- :\n";
+  Printf.printf "Left:";
+  List.iter (Printf.printf "%c ") tape.left;
+  Printf.printf "\n";
+  Printf.printf "Head: %c" tape.head;
+  Printf.printf "\nRight: ";
+  List.iter (Printf.printf "%c ") tape.right;
+  Printf.printf "\n";

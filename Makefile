@@ -17,6 +17,7 @@ FILES = \
 	print \
 	parser \
 	debug \
+	turing \
 	main \
 
 SRC = $(FILES:%=$(SRC_DIR)/%.ml)

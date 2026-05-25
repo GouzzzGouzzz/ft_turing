@@ -21,4 +21,9 @@ type machine =
   transitions : (string * transition list) list;
 }
 
-
+type tape =
+{
+   left : char list ; 
+   head : char ; 
+   right : char list ;
+}

@@ -9,8 +9,9 @@ let main () =
       let json = Yojson.Safe.from_file filename in
       let machine = Parser.create_machine json in
       Parser.validate_fields machine;
-      Debug.print_machine machine;
-      let input = Parser.input Sys.argv.(2) machine.alphabet in
+      (*Debug.print_machine machine;*)
+      let input = Parser.input Sys.argv.(2) machine.alphabet machine.blank in
+      Turing.simulate machine input;
       ()
     with
     | Sys_error msg  -> Print.print_error msg;

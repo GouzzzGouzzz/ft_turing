@@ -24,7 +24,7 @@ let get_action json =
   match json with 
   | "LEFT" -> Types.LEFT
   | "RIGHT" -> Types.RIGHT
-  | _ -> raise (Parse_error (p_error ^ "invalid action in transtion, can only be RIGHT or LEFT"))
+  | _ -> raise (Parse_error (p_error ^ "Invalid action in transtion, can only be RIGHT or LEFT"))
 
 let get_transition json = 
   let transition : Types.transition =
@@ -81,10 +81,12 @@ let parse_option () : bool =
     false
 
 
-let input str alphabet =
+let input str alphabet blank =
+  if String.length str = 0 
+    then raise (Parse_error (p_error ^ "Empty input")); 
   String.iter (fun x -> 
-    if not (List.mem x alphabet) 
-    then raise (Parse_error (p_error ^ "invalid input, only alphabet char are allowed"))) str;
+    if not (List.mem x alphabet) && x <> blank 
+    then raise (Parse_error (p_error ^ "Invalid input, only alphabet char are allowed / blank are not allowed"))) str;
   str
 
 (* Data validation of fields parsed *)
@@ -94,31 +96,33 @@ let validate_alphabet blank alphabet transitions =
   let transition_data = List.map Pair.snd transitions in 
   let transition_state = List.flatten transition_data in
   if not (List.for_all (fun (x : Types.transition) -> List.mem x.read alphabet ) transition_state) 
-    then raise (Validation_error (v_error ^ "invalid char in field read of a transition"));
+    then raise (Validation_error (v_error ^ "Invalid char in field read of a transition"));
   if not (List.for_all (fun (x : Types.transition) -> List.mem x.write alphabet ) transition_state) 
-    then raise (Validation_error (v_error ^ "invalid char in field write of a transition"))
+    then raise (Validation_error (v_error ^ "Invalid char in field write of a transition"))
 
 let validate_initial initial states transitions =
-  if not (List.mem initial states) then raise (Validation_error (v_error ^ "inital state not defined in states list"));
+  if not (List.mem initial states) 
+    then raise (Validation_error (v_error ^ "inital state not defined in states list"));
   let transition_name = List.map Pair.fst transitions in 
   if not (List.mem initial transition_name)
-    then raise (Validation_error (v_error ^ "initial state is not defined in the transitions list"))
+    then raise (Validation_error (v_error ^ "Initial state is not defined in the transitions list"))
 
 let validate_states states transitions =
   if List.length states = 0 then raise (Validation_error (v_error ^ "states need to be defined"));
   let transition_data = List.map Pair.snd transitions in 
   let transition_state = List.flatten transition_data in
   if not (List.for_all (fun (x : Types.transition) -> List.mem x.to_state states ) transition_state) 
-    then raise (Validation_error (v_error ^ "transition defined with a name not defined in states list"));
+    then raise (Validation_error (v_error ^ "Transition defined with a name not defined in states list"));
   let transition_name = List.map Pair.fst transitions in 
   if List.length transition_name <> List.length states - 1
-    then raise (Validation_error (v_error ^ "missing or too much transition definition in transition list"))
+    then raise (Validation_error (v_error ^ "Missing or too much transition definition in transition list"))
   
 
 let validate_finals states finals =
-  if List.length finals = 0 then raise (Validation_error (v_error ^ "finals states need to be defined"));
+  if List.length finals = 0 then 
+    raise (Validation_error (v_error ^ "Finals states need to be defined"));
   if not (List.for_all (fun x -> List.mem x states) finals) 
-    then raise (Validation_error (v_error ^ "finals states is not defined in states list"))
+    then raise (Validation_error (v_error ^ "Finals states is not defined in states list"))
   
 
 let validate_fields (machine : Types.machine) =
