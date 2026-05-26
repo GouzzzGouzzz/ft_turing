@@ -1,5 +1,5 @@
 {
-  "name": "0n2",
+  "name": "02n",
   "alphabet": ["0", ".", "n", "y"],
   "blank": ".",
   "states": ["even", "odd", "yes", "no", "HALT"],
