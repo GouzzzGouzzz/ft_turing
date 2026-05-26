@@ -85,8 +85,8 @@ let input str alphabet blank =
   if String.length str = 0 
     then raise (Parse_error (p_error ^ "Empty input")); 
   String.iter (fun x -> 
-    if not (List.mem x alphabet) && x <> blank 
-    then raise (Parse_error (p_error ^ "Invalid input, only alphabet char are allowed / blank are not allowed"))) str;
+    if not (List.mem x alphabet) || x = blank 
+      then raise (Parse_error (p_error ^ "Invalid input, only alphabet char are allowed / blank are not allowed"))) str;
   str
 
 (* Data validation of fields parsed *)

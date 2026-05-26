@@ -77,12 +77,12 @@ let print_tape_status (tape : Types.tape) (transition : Types.transition) blank 
   let left_pad = max_len - left_list_len  in
   let right_pad = max_len - right_list_len in
     Printf.printf "[";
-    print_list (List.rev tape.left) left_list_len;
+    print_list tape.left left_list_len;
     Printf.printf "%s" (String.make left_pad blank);
 
     Printf.printf "<%c>" tape.head;
 
-    print_list (List.rev tape.right) right_list_len;
+    print_list tape.right right_list_len;
     Printf.printf "%s" (String.make right_pad blank);
     Printf.printf "]"
 

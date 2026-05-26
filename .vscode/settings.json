@@ -1,6 +1,5 @@
 {
     "ocaml.sandbox": {
-        "kind": "opam",
-        "switch": "ft_turing"
+        "kind": "global"
     }
 }
