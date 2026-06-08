@@ -21,7 +21,4 @@ gerer ce cas ici :
     if for some reason the machine is blocked, you must detect it and inform the user
     of your program of what happened.
 
-faire fonction print de la tape en cours d execution
-
-
 faire les machine du sujet

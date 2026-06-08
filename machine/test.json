@@ -2,9 +2,9 @@
 "name" : "111111111111111111111111111111111111111111111",
 "alphabet": [ "1", ".", "-", "=" ],
 "blank" : ".",
-"states" : [ "scanright", "eraseone", "subone", "skip", "HALT" ],
+"states" : [ "scanright", "eraseone", "subone", "skip", "test" ],
 "initial" : "scanright",
-"finals" : [ "HALT" ],
+"finals" : [ "test", "scanright" ],
 "transitions" : {
     "scanright": [
         { "read" : "1", "to_state": "scanright", "write": ".", "action": "RIGHT"},
@@ -14,7 +14,7 @@
         ],
     "eraseone": [
         { "read" : "1", "to_state": "subone", "write": "=", "action": "LEFT"},
-        { "read" : "-", "to_state": "HALT" , "write": ".", "action": "LEFT"}
+        { "read" : "-", "to_state": "eraseone" , "write": ".", "action": "LEFT"}
         ],
     "subone": [
         { "read" : "1", "to_state": "subone", "write": "1", "action": "LEFT"},

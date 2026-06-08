@@ -95,10 +95,13 @@ let validate_alphabet blank alphabet transitions =
   if not (List.mem blank alphabet) then raise (Validation_error (v_error ^ "blank should be defined in alphabet"));
   let transition_data = List.map Pair.snd transitions in 
   let transition_state = List.flatten transition_data in
+  let unique_list = List.sort_uniq Char.compare alphabet in
   if not (List.for_all (fun (x : Types.transition) -> List.mem x.read alphabet ) transition_state) 
     then raise (Validation_error (v_error ^ "Invalid char in field read of a transition"));
   if not (List.for_all (fun (x : Types.transition) -> List.mem x.write alphabet ) transition_state) 
-    then raise (Validation_error (v_error ^ "Invalid char in field write of a transition"))
+    then raise (Validation_error (v_error ^ "Invalid char in field write of a transition"));
+  if (List.length unique_list) != (List.length alphabet)
+    then raise (Validation_error (v_error ^ "Invalid alphabet, no duplicate allowed"))
 
 let validate_initial initial states transitions =
   if not (List.mem initial states) 
@@ -111,19 +114,25 @@ let validate_states states transitions =
   if List.length states = 0 then raise (Validation_error (v_error ^ "states need to be defined"));
   let transition_data = List.map Pair.snd transitions in 
   let transition_state = List.flatten transition_data in
+  let transition_name = List.map Pair.fst transitions in 
+  let transition_name_unique = List.sort_uniq String.compare states in
   if not (List.for_all (fun (x : Types.transition) -> List.mem x.to_state states ) transition_state) 
     then raise (Validation_error (v_error ^ "Transition defined with a name not defined in states list"));
-  let transition_name = List.map Pair.fst transitions in 
   if List.length transition_name <> List.length states - 1
     then raise (Validation_error (v_error ^ "Missing or too much transition definition in transition list"));
   if not (List.for_all (fun (x : string) -> List.mem x states ) transition_name)
-    then raise (Validation_error (v_error ^ "Transition not defined in transition list"))
+    then raise (Validation_error (v_error ^ "Transition not defined in transition list"));
+  if (List.length transition_name_unique) != (List.length states)
+    then raise (Validation_error (v_error ^ "Invalid states, no duplicate allowed"))
 
 let validate_finals states finals =
+  let finals_unique = List.sort_uniq String.compare finals in 
   if List.length finals = 0 then 
     raise (Validation_error (v_error ^ "Finals states need to be defined"));
   if not (List.for_all (fun x -> List.mem x states) finals) 
-    then raise (Validation_error (v_error ^ "Finals states is not defined in states list"))
+    then raise (Validation_error (v_error ^ "Finals states is not defined in states list"));
+  if (List.length finals_unique) != (List.length finals)
+    then raise (Validation_error (v_error ^ "Invalid finals, no duplicate allowed"))
   
 let validate_name name = 
   if String.length name > 60 

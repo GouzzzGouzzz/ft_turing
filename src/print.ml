@@ -55,8 +55,8 @@ let print_machine (machine : Types.machine) =
 
   Printf.printf "Finals: ";
   Printf.printf "[ ";
-  List.iter (Printf.printf "%s") machine.finals;
-  Printf.printf " ]";
+  List.iter (Printf.printf "%s ") machine.finals;
+  Printf.printf "]";
   Printf.printf "\n";
 
   print_state machine.transitions
