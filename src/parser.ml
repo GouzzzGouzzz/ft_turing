@@ -115,8 +115,9 @@ let validate_states states transitions =
     then raise (Validation_error (v_error ^ "Transition defined with a name not defined in states list"));
   let transition_name = List.map Pair.fst transitions in 
   if List.length transition_name <> List.length states - 1
-    then raise (Validation_error (v_error ^ "Missing or too much transition definition in transition list"))
-  
+    then raise (Validation_error (v_error ^ "Missing or too much transition definition in transition list"));
+  if not (List.for_all (fun (x : string) -> List.mem x states ) transition_name)
+    then raise (Validation_error (v_error ^ "Transition not defined in transition list"))
 
 let validate_finals states finals =
   if List.length finals = 0 then 
@@ -124,7 +125,6 @@ let validate_finals states finals =
   if not (List.for_all (fun x -> List.mem x states) finals) 
     then raise (Validation_error (v_error ^ "Finals states is not defined in states list"))
   
-
 let validate_name name = 
   if String.length name > 60 
     then raise (Validation_error (v_error ^ "Name is too loog (max 60)"))
