@@ -27,24 +27,25 @@ echo "--- Testing invalid input ---"
 echo ""
 
 echo "Empty :"
-output=$(./ft_turing "machine/test.json" "" | tr -d '\n')
+file=machine/test.json
+output=$(./ft_turing $file "" | tr -d '\n')
 if grep -q "Ft_turing" <<< "$output"; then
-    echo -e "$file: ${GREEN}OK${NC} $output"
+    echo -e "$file : ${GREEN}OK${NC} $output"
 else
-    echo -e "$file: ${RED}KO${NC}"
+    echo -e "$file : ${RED}KO${NC}"
 fi
 echo "Not alphabet : asdyauisjdajsda"
-output=$(./ft_turing "machine/test.json" "asdyauisjdajsda" | tr -d '\n')
+output=$(./ft_turing $file "asdyauisjdajsda" | tr -d '\n')
 if grep -q "Ft_turing" <<< "$output"; then
-    echo -e "$file: ${GREEN}OK${NC} $output"
+    echo -e "$file : ${GREEN}OK${NC} $output"
 else
-    echo -e "$file: ${RED}KO${NC}"
+    echo -e "$file : ${RED}KO${NC}"
 fi
 
 echo "Blank : ...."
-output=$(./ft_turing "machine/test.json" "...." | tr -d '\n')
+output=$(./ft_turing $file "...." | tr -d '\n')
 if grep -q "Ft_turing" <<< "$output"; then
-    echo -e "$file: ${GREEN}OK${NC} $output"
+    echo -e "$file : ${GREEN}OK${NC} $output"
 else
-    echo -e "$file: ${RED}KO${NC}"
+    echo -e "$file : ${RED}KO${NC}"
 fi
