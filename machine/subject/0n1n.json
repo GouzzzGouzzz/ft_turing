@@ -2,7 +2,7 @@
   "name": "0n1n",
   "alphabet": ["0", "1", ".", "n", "y"],
   "blank": ".",
-  "states": ["leftmost", "readzero", "readone", "rightmost", "leftmost", "yes", "no", "HALT"],
+  "states": ["leftmost", "readzero", "readone", "rightmost", "yes", "no", "HALT"],
   "initial": "readzero",
   "finals": ["HALT"],
   "transitions": {
