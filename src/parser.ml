@@ -24,7 +24,7 @@ let get_action json =
   match json with 
   | "LEFT" -> Types.LEFT
   | "RIGHT" -> Types.RIGHT
-  | _ -> raise (Parse_error (p_error ^ "Invalid action in transtion, can only be RIGHT or LEFT"))
+  | _ -> raise (Parse_error (p_error ^ "Invalid action in transition, can only be RIGHT or LEFT"))
 
 let get_transition json = 
   let transition : Types.transition =
@@ -93,7 +93,7 @@ let input str alphabet blank =
 (* Data validation of fields parsed *)
 
 let validate_alphabet blank alphabet transitions =
-  if not (List.mem blank alphabet) then raise (Validation_error (v_error ^ "blank should be defined in alphabet"));
+  if not (List.mem blank alphabet) then raise (Validation_error (v_error ^ "has to be defined in alphabet"));
   let transition_data = List.map Pair.snd transitions in 
   let transition_state = List.flatten transition_data in
   let unique_list = List.sort_uniq Char.compare alphabet in
@@ -119,20 +119,23 @@ let read_check (elt : string * Types.transition list) =
   if (List.length read_uniq) != (List.length read_list)
     then raise (Validation_error (v_error ^ "Multiple states for the same read value"))
 
-let validate_states states transitions =
+let validate_transitions states transitions =
   if List.length states = 0 then raise (Validation_error (v_error ^ "states need to be defined"));
   let transition_name = List.map Pair.fst transitions in 
+  let transition_name_unique = List.sort_uniq String.compare transition_name in
   let transition_data = List.map Pair.snd transitions in 
   let transition_state = List.flatten transition_data in
-  let transition_name_unique = List.sort_uniq String.compare states in
+  let transition_state_name_unique = List.sort_uniq String.compare states in
   if not (List.for_all (fun (x : Types.transition) -> List.mem x.to_state states ) transition_state) 
     then raise (Validation_error (v_error ^ "Transition defined with a name not defined in states list"));
   if List.length transition_name < List.length states - 1
     then raise (Validation_error (v_error ^ "Some transition states are not defined in transition list"));
   if not (List.for_all (fun (x : string) -> List.mem x states ) transition_name)
     then raise (Validation_error (v_error ^ "Transition not defined in transition list"));
-  if (List.length transition_name_unique) != (List.length states)
-    then raise (Validation_error (v_error ^ "Invalid states, no duplicate allowed"));
+  if (List.length transition_state_name_unique) != (List.length states)
+    then raise (Validation_error (v_error ^ "Invalid states list definition, no duplicate allowed"));
+  if (List.length transition_name_unique) != (List.length transition_name)
+    then raise (Validation_error (v_error ^ "Invalid states list, no duplicate allowed"));
   List.iter read_check transitions
 
 let validate_finals states finals =
@@ -152,7 +155,7 @@ let validate_fields (machine : Types.machine) =
   validate_name machine.name;
   validate_alphabet machine.blank machine.alphabet machine.transitions;
   validate_initial machine.initial machine.states machine.transitions;
-  validate_states machine.states machine.transitions;
+  validate_transitions machine.states machine.transitions;
   validate_finals machine.states machine.finals;
   ()
 

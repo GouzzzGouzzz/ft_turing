@@ -19,7 +19,7 @@ let main () =
     | Yojson.Json_error msg-> Print.print_error msg;
     | Parser.Parse_error msg -> Print.print_error msg;
     | Parser.Validation_error msg -> Print.print_error msg;
-    | Yojson.Safe.Util.Type_error (msg, json) -> Print.print_error ("unhandled (JSON FORMATING): " ^ msg);
+    | Yojson.Safe.Util.Type_error (msg, json) -> Print.print_error ("(JSON FORMATING): " ^ msg);
   )
 
 let () = main ()
