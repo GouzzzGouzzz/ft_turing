@@ -65,12 +65,13 @@ let parse_option () : bool =
     true
   )
   else if Array.length Sys.argv = 2 && (Sys.argv.(1) = "--help" || Sys.argv.(1) = "-h") then (
-    Printf.printf "usage: ft_turing [-h] jsonfile input\n
-    positional arguments:\n
-    jsonfile json description of the machine\n
-    input input of the machine\n
-    optional arguments:\n
-    -h, --help show this help message and exit\n";
+    Printf.printf "usage: ft_turing [-h] jsonfile input
+    \npositional arguments:
+      jsonfile        json description of the machine
+
+      input           input of the machine
+    \noptional arguments:
+      -h, --help show this help message and exit\n";
     true
   )
   else if Array.length Sys.argv < 3 || Array.length Sys.argv > 3   then ( 

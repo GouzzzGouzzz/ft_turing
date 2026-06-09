@@ -48,16 +48,14 @@ let print_machine (machine : Types.machine) =
   Printf.printf "\nStates: ";
   Printf.printf "[ ";
   List.iter (Printf.printf "%s ") machine.states;
-  Printf.printf "]";
-  Printf.printf "\n";
+  Printf.printf "]\n";
 
   Printf.printf "Initial: %s\n" machine.initial;
 
   Printf.printf "Finals: ";
   Printf.printf "[ ";
   List.iter (Printf.printf "%s ") machine.finals;
-  Printf.printf "]";
-  Printf.printf "\n";
+  Printf.printf "]\n";
 
   print_state machine.transitions
 
@@ -70,20 +68,39 @@ let rec print_list charlist lenght =
     print_list tail (lenght - 1)
 
   (*Total lenght is 25, we keep 12 for each left and right part of the tape, rest is head*)
-let print_tape_status (tape : Types.tape) (transition : Types.transition) blank =
-  let max_len = 12 in
-  let left_list_len = if List.length tape.left > max_len then max_len else List.length tape.left in
-  let right_list_len = if List.length tape.right > max_len then max_len else List.length tape.right in
-  let left_pad = max_len - left_list_len  in
-  let right_pad = max_len - right_list_len in
-    Printf.printf "[";
+
+
+    (*
+    
+    let left_list_len = if List.length tape.left > max_len then max_len else List.length tape.left in
+    let right_list_len = if List.length tape.right > max_len then max_len else List.length tape.right in
+    let left_pad = max_len - left_list_len  in
+    let right_pad = max_len - right_list_len in
+    
     print_list tape.left left_list_len;
     Printf.printf "%s" (String.make left_pad blank);
 
     Printf.printf "<%c>" tape.head;
 
     print_list tape.right right_list_len;
-    Printf.printf "%s" (String.make right_pad blank);
+    Printf.printf "%s" (String.make right_pad blank);*)
+(*move right = + 1 index move left = - 1 index*)
+
+
+let print_tape_status (tape : Types.tape) (transition : Types.transition) blank =
+  let max_len = 24 in
+  let right_len = max_len - tape.index in 
+  let left_len = 
+    if tape.index > max_len 
+      then max_len 
+    else if tape.index < 0 
+      then 0 
+    else tape.index 
+  in 
+    Printf.printf "[";
+    print_list tape.left left_len;
+    Printf.printf "<%c>" tape.head;
+    print_list tape.right right_len;
     Printf.printf "]"
 
 let print_current_tape_state state (tape : Types.tape) (transition : Types.transition) blank = 

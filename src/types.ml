@@ -23,7 +23,9 @@ type machine =
 
 type tape =
 {
-   left : char list; 
-   head : char; 
-   right : char list;
+  left : char list; 
+  head : char; 
+  right : char list;
+  (* Used for displaying to terminal *)
+  index : int;
 }
