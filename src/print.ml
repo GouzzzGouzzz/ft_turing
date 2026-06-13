@@ -69,9 +69,7 @@ let rec print_list charlist lenght =
 let print_tape_status (tape : Types.tape) (transition : Types.transition) blank =
   let left_len = tape.leftmost - tape.index in
   let right_len = tape.rightmost - tape.index in
-  (*Printf.printf "left:%d\n" left_len;
-  Printf.printf "right:%d\n" right_len;
-  *)Printf.printf "[";
+  Printf.printf "[";
   print_list (List.rev tape.left) (Int.abs(left_len));
   Printf.printf "<%c>" tape.head;
   print_list tape.right (Int.abs(right_len));

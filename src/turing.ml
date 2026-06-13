@@ -7,7 +7,7 @@ let rec fill_blank list blank =
 let rec remove_last_elt list = 
   match list with
   | [] -> []
-  | hd :: [] -> [] (* if end of list do not return the element *)
+  | hd :: [] -> []
   | hd :: tail -> hd :: (remove_last_elt tail)
 
 let create_tape str blank =
@@ -43,23 +43,30 @@ let move_left (tape : Types.tape) blank =
     rightmost = if tape.rightmost + 24 > tape.index - 1 then tape.rightmost - 1 else tape.rightmost
   } in new_tape
 
+let rec get_transi_list (transitions : ( string * Types.transition list) list) curr_state = 
+  match transitions with
+  | [] -> None 
+  | (str, lst) :: tl -> 
+    if str = curr_state then Some lst else get_transi_list tl curr_state
+
+let rec get_transi transi_list head =
+  match transi_list with
+  | [] -> None
+  | (hd : Types.transition) :: tail -> 
+    if hd.read = head then Some hd else get_transi tail head
+
+let rec simulate_rec (machine : Types.machine) (tape : Types.tape) curr_state =
+  let transi_list = get_transi_list machine.transitions curr_state in
+  let transi = get_transi (Option.get transi_list) tape.head in
+  let transi = (Option.get transi) in
+    if (List.mem transi.to_state machine.finals)
+      then Printf.printf "Fini"
+    else
+      Print.print_current_tape_state curr_state tape transi machine.blank;
+      simulate_rec machine tape transi.to_state;
+      ()
+
 let simulate (machine : Types.machine) input =
-  let tape = create_tape input machine.blank in
-  let first_transition = List.hd (snd (List.hd machine.transitions)) in
-    Print.print_current_tape_state "test" tape first_transition machine.blank;
-  Debug.print_tape tape;
-  let tape = move_left tape machine.blank in 
-    Print.print_current_tape_state "test" tape first_transition machine.blank;
-  Debug.print_tape tape;
-  let tape = move_left tape machine.blank in 
-    Print.print_current_tape_state "test" tape first_transition machine.blank;
-  Debug.print_tape tape;
-  let tape = move_left tape machine.blank in 
-    Print.print_current_tape_state "test" tape first_transition machine.blank;
-  let tape = move_right tape machine.blank in 
-    Print.print_current_tape_state "test" tape first_transition machine.blank;
-  let tape = move_right tape machine.blank in 
-    Print.print_current_tape_state "test" tape first_transition machine.blank;
-  let tape = move_right tape machine.blank in 
-    Print.print_current_tape_state "test" tape first_transition machine.blank;
-  Debug.print_tape tape;
+  let init_tape = create_tape input machine.blank in
+    simulate_rec machine init_tape machine.initial;
+    ()
