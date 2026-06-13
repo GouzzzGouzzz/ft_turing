@@ -28,4 +28,6 @@ type tape =
   right : char list;
   (* Used for displaying to terminal *)
   index : int;
+  leftmost : int;
+  rightmost : int;
 }

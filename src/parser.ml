@@ -106,7 +106,7 @@ let validate_alphabet blank alphabet transitions =
 
 let validate_initial initial states transitions =
   if not (List.mem initial states) 
-    then raise (Validation_error (v_error ^ "inital state not defined in states list"));
+    then raise (Validation_error (v_error ^ "Inital state not defined in states list"));
   let transition_name = List.map Pair.fst transitions in 
   if not (List.mem initial transition_name)
     then raise (Validation_error (v_error ^ "Initial state is not defined in the transitions list"))

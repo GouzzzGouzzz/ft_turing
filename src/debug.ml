@@ -50,4 +50,10 @@ let print_tape (tape : Types.tape) =
   Printf.printf "Head: %c" tape.head;
   Printf.printf "\nRight: ";
   List.iter (Printf.printf "%c ") tape.right;
-  Printf.printf "\n";
+  Printf.printf "\nIndex:";
+  Printf.printf "%d" tape.index;
+  Printf.printf "\nrightmost:";
+  Printf.printf "%d" tape.rightmost;
+  Printf.printf "\nleftmost:";
+  Printf.printf "%d\n" tape.leftmost;
+  
