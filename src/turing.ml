@@ -21,26 +21,26 @@ let create_tape str blank =
     rightmost = 24
   } in tape
 
-let move_right (tape : Types.tape) blank = 
+let move_right (tape : Types.tape) blank write = 
   let new_tape : Types.tape =
   {
     head =  if (List.length tape.right) = 0 then blank else List.nth tape.right 0;
-    left = tape.left @ [tape.head]; 
+    left = tape.left @ [write]; 
     right = List.drop 1 tape.right;
     index = tape.index + 1;
-    leftmost = if tape.leftmost + 24 < tape.index + 1 then tape.leftmost + 1 else tape.leftmost;
+    leftmost = if tape.rightmost - 24 <= tape.leftmost then tape.leftmost else tape.leftmost + 1;
     rightmost = if tape.rightmost < tape.index + 1 then tape.rightmost + 1 else tape.rightmost
   } in new_tape
 
-let move_left (tape : Types.tape) blank = 
+let move_left (tape : Types.tape) blank write = 
   let new_tape : Types.tape =
   {
     head = if (List.length tape.left) = 0 then blank else List.nth tape.left ((List.length tape.left) - 1);
     left = remove_last_elt tape.left;
-    right = tape.head :: tape.right;
+    right = write :: tape.right;
     index = tape.index - 1;
     leftmost = if tape.leftmost > tape.index - 1 then tape.leftmost - 1 else tape.leftmost;
-    rightmost = if tape.rightmost + 24 > tape.index - 1 then tape.rightmost - 1 else tape.rightmost
+    rightmost = if tape.leftmost + 24 <= tape.rightmost then tape.rightmost else tape.rightmost - 1
   } in new_tape
 
 let rec get_transi_list (transitions : ( string * Types.transition list) list) curr_state = 
@@ -59,10 +59,17 @@ let rec simulate_rec (machine : Types.machine) (tape : Types.tape) curr_state =
   let transi_list = get_transi_list machine.transitions curr_state in
   let transi = get_transi (Option.get transi_list) tape.head in
   let transi = (Option.get transi) in
+  Print.print_current_tape_state curr_state tape transi machine.blank;
+  let tape = if transi.action = Types.LEFT 
+      then move_left tape machine.blank transi.write 
+    else move_right tape machine.blank transi.write 
+  in
     if (List.mem transi.to_state machine.finals)
-      then Printf.printf "Fini"
+      then(
+        Print.print_tape_status tape transi machine.blank;
+        Printf.printf " HALTED\n"
+        )
     else
-      Print.print_current_tape_state curr_state tape transi machine.blank;
       simulate_rec machine tape transi.to_state;
       ()
 

@@ -67,12 +67,19 @@ let rec print_list charlist lenght =
     print_list tail (lenght - 1)
 
 let print_tape_status (tape : Types.tape) (transition : Types.transition) blank =
-  let left_len = tape.leftmost - tape.index in
-  let right_len = tape.rightmost - tape.index in
+  let left_len = Int.abs(tape.leftmost - tape.index) in
+  let right_len = Int.abs(tape.rightmost - tape.index) in
+  let left_cut = List.take left_len (List.rev tape.left) in
+  if (left_len + right_len <> 24) then (
+    Printf.printf "left:%d\n" left_len;
+    Printf.printf "right:%d\n" right_len
+  )
+  else ();
+ 
   Printf.printf "[";
-  print_list (List.rev tape.left) (Int.abs(left_len));
+  print_list (List.rev left_cut) left_len;
   Printf.printf "<%c>" tape.head;
-  print_list tape.right (Int.abs(right_len));
+  print_list tape.right right_len;
   Printf.printf "]"
 
 let print_current_tape_state state (tape : Types.tape) (transition : Types.transition) blank = 
