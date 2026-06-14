@@ -1,3 +1,7 @@
+exception Runtime_error of string
+
+let r_error = "Runtime_error: "
+
 let rec fill_blank list blank =
   if List.length list < 24 then
     fill_blank (list @ [blank]) blank
@@ -59,23 +63,26 @@ let rec get_transi transi_list head =
 
 let rec simulate_rec (machine : Types.machine) (tape : Types.tape) curr_state =
   let transi_list = get_transi_list machine.transitions curr_state in
-  let transi = get_transi (Option.get transi_list) tape.head in
-  let transi = (Option.get transi) in
-  Print.print_current_tape_state curr_state tape transi machine.blank;
-  let tape = if transi.action = Types.LEFT 
-      then move_left tape machine.blank transi.write 
-    else move_right tape machine.blank transi.write 
-  in
-    if (List.mem transi.to_state machine.finals)
-      then(
-        Print.print_tape_status tape transi machine.blank;
-        Printf.printf " HALTED\n"
-        )
-    else
-      simulate_rec machine tape transi.to_state;
-      ()
+  match transi_list with
+  | None -> raise (Runtime_error (r_error ^ "Machine is blocked (List not found)"));
+  | Some transi_list -> 
+    let transi = get_transi transi_list tape.head in
+    match transi with
+    | None -> raise (Runtime_error (r_error ^ "Machine is blocked (Transition not found)"));
+    | Some transi -> 
+      Print.print_current_tape_state curr_state tape transi machine.blank;
+      let tape = if transi.action = Types.LEFT 
+          then move_left tape machine.blank transi.write 
+        else move_right tape machine.blank transi.write 
+      in
+        if (List.mem transi.to_state machine.finals)
+          then(
+            Print.print_tape_status tape transi machine.blank;
+            Printf.printf " HALTED\n"
+            )
+        else
+          simulate_rec machine tape transi.to_state
 
 let simulate (machine : Types.machine) input =
   let init_tape = create_tape input machine.blank in
-    simulate_rec machine init_tape machine.initial;
-    ()
+    simulate_rec machine init_tape machine.initial

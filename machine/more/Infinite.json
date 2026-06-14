@@ -1,0 +1,14 @@
+{
+  "name": "Infinite (Computer will kill)",
+  "alphabet": ["1", "b", " "],
+  "blank": " ",
+  "states": ["f", "HALT"],
+  "initial": "f",
+  "finals": ["HALT"],
+  "transitions": {
+    "f": [
+      {"read": "1", "to_state": "a", "write": "b", "action": "RIGHT"},
+      {"read": " ", "to_state": "f", "write": "1", "action": "RIGHT"}
+    ]
+  }
+}

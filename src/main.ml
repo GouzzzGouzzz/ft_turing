@@ -20,6 +20,7 @@ let main () =
     | Parser.Parse_error msg -> Print.print_error msg;
     | Parser.Validation_error msg -> Print.print_error msg;
     | Yojson.Safe.Util.Type_error (msg, json) -> Print.print_error ("(JSON FORMATING): " ^ msg);
+    | Turing.Runtime_error msg -> Print.print_error msg;
   )
 
 let () = main ()

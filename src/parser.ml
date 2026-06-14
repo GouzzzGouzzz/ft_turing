@@ -2,7 +2,6 @@
 exception Parse_error of string
 exception Validation_error of string
 
-
 let p_error = "Parse_error: "
 let v_error = "Validation_error: "
 
