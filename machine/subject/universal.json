@@ -1,0 +1,280 @@
+{
+	"name" : "universal",
+	"alphabet": [ "a", "b", "c", "d", 
+
+				  "A", "B", "C", "D", "E",
+				  "1", ".", "+", "=", 
+
+				  "r", "l", 
+				  "|", "X", "H", "Y", "*"],
+	"blank" : "*",
+	"states" : [
+				"find_initial_state_delim",
+				"found_initial_state_delim",
+				"state_a_find_cursor",
+				"save_cursor",
+				"state_a_find_1_transition_delim",
+				"state_a_find_1_transition_delim_skip1",
+				"state_a_found_1_transition_delim",
+				"state_a_found_1_transition_delim_find_read",
+				"state_a_found_1_transition_delim_find_next_state",
+				"state_a_found_1_transition_delim_found_next_state_a",
+				"state_a_found_1_transition_delim_found_next_state_a_write_1",
+				"state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim",
+				"state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_found_delim",
+				"state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor",
+				"state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1",
+				"state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor_go_back",
+				"HALT"
+	],
+	"initial" : "find_initial_state_delim",
+	"finals" : [ "HALT" ],
+
+	"transitions" :
+	{
+		"save_cursor" :
+		[
+			{"read": "1", "to_state": "find_initial_state_delim", "write": "A", "action": "LEFT"},
+			{"read": ".", "to_state": "find_initial_state_delim", "write": "B", "action": "LEFT"},
+			{"read": "+", "to_state": "find_initial_state_delim", "write": "C", "action": "LEFT"},
+			{"read": "=", "to_state": "find_initial_state_delim", "write": "D", "action": "LEFT"},
+			{"read": "*", "to_state": "find_initial_state_delim", "write": "E", "action": "LEFT"}
+		],
+		"find_initial_state_delim" :
+		[
+			{"read": "a", "to_state": "find_initial_state_delim", "write": "a", "action": "LEFT"},
+			{"read": "b", "to_state": "find_initial_state_delim", "write": "b", "action": "LEFT"},
+			{"read": "c", "to_state": "find_initial_state_delim", "write": "c", "action": "LEFT"},
+			{"read": "d", "to_state": "find_initial_state_delim", "write": "d", "action": "LEFT"},
+
+			{"read": "A", "to_state": "find_initial_state_delim", "write": "A", "action": "LEFT"},
+			{"read": "B", "to_state": "find_initial_state_delim", "write": "B", "action": "LEFT"},
+			{"read": "C", "to_state": "find_initial_state_delim", "write": "C", "action": "LEFT"},
+			{"read": "D", "to_state": "find_initial_state_delim", "write": "D", "action": "LEFT"},
+			{"read": "E", "to_state": "find_initial_state_delim", "write": "E", "action": "LEFT"},
+
+			{"read": "1", "to_state": "find_initial_state_delim", "write": "1", "action": "LEFT"},
+			{"read": ".", "to_state": "find_initial_state_delim", "write": ".", "action": "LEFT"},
+			{"read": "+", "to_state": "find_initial_state_delim", "write": "+", "action": "LEFT"},
+			{"read": "=", "to_state": "find_initial_state_delim", "write": "=", "action": "LEFT"},
+
+			{"read": "r", "to_state": "find_initial_state_delim", "write": "r", "action": "LEFT"},
+			{"read": "l", "to_state": "find_initial_state_delim", "write": "l", "action": "LEFT"},
+
+			{"read": "|", "to_state": "find_initial_state_delim", "write": "|", "action": "LEFT"},
+			{"read": "X", "to_state": "find_initial_state_delim", "write": "X", "action": "LEFT"},
+			{"read": "H", "to_state": "find_initial_state_delim", "write": "H", "action": "LEFT"},
+			{"read": "Y", "to_state": "found_initial_state_delim", "write": "Y", "action": "RIGHT"},
+			{"read": "*", "to_state": "find_initial_state_delim", "write": "*", "action": "LEFT"}
+		],
+		"found_initial_state_delim" :
+		[
+			{"read": "a", "to_state": "state_a_find_cursor", "write": "a", "action": "LEFT"},
+			{"read": "b", "to_state": "state_a_find_cursor", "write": "b", "action": "LEFT"},
+			{"read": "c", "to_state": "state_a_find_cursor", "write": "c", "action": "LEFT"},
+			{"read": "d", "to_state": "state_a_find_cursor", "write": "d", "action": "LEFT"}
+		],
+		"state_a_find_cursor" :
+		[
+			{"read": "a", "to_state": "state_a_find_cursor", "write": "a", "action": "RIGHT"},
+			{"read": "b", "to_state": "state_a_find_cursor", "write": "b", "action": "RIGHT"},
+			{"read": "c", "to_state": "state_a_find_cursor", "write": "c", "action": "RIGHT"},
+			{"read": "d", "to_state": "state_a_find_cursor", "write": "d", "action": "RIGHT"},
+
+			{"read": "A", "to_state": "state_a_find_1_transition_delim", "write": "A", "action": "LEFT"},
+			{"read": "B", "to_state": "state_a_find_1_transition_delim", "write": "B", "action": "LEFT"},
+			{"read": "C", "to_state": "state_a_find_1_transition_delim", "write": "C", "action": "LEFT"},
+			{"read": "D", "to_state": "state_a_find_1_transition_delim", "write": "D", "action": "LEFT"},
+			{"read": "E", "to_state": "state_a_find_1_transition_delim", "write": "E", "action": "LEFT"},
+
+			{"read": "1", "to_state": "state_a_find_cursor", "write": "1", "action": "RIGHT"},
+			{"read": ".", "to_state": "state_a_find_cursor", "write": ".", "action": "RIGHT"},
+			{"read": "+", "to_state": "state_a_find_cursor", "write": "+", "action": "RIGHT"},
+			{"read": "=", "to_state": "state_a_find_cursor", "write": "=", "action": "RIGHT"},
+
+			{"read": "r", "to_state": "state_a_find_cursor", "write": "r", "action": "RIGHT"},
+			{"read": "l", "to_state": "state_a_find_cursor", "write": "l", "action": "RIGHT"},
+
+			{"read": "|", "to_state": "state_a_find_cursor", "write": "|", "action": "RIGHT"},
+			{"read": "X", "to_state": "state_a_find_cursor", "write": "X", "action": "RIGHT"},
+			{"read": "H", "to_state": "state_a_find_cursor", "write": "H", "action": "RIGHT"},
+			{"read": "Y", "to_state": "state_a_find_cursor", "write": "Y", "action": "RIGHT"},
+			{"read": "*", "to_state": "state_a_find_cursor", "write": "*", "action": "RIGHT"}
+		],
+		"state_a_find_1_transition_delim" :
+		[
+			{"read": "a", "to_state": "state_a_find_1_transition_delim", "write": "a", "action": "LEFT"},
+			{"read": "b", "to_state": "state_a_find_1_transition_delim", "write": "b", "action": "LEFT"},
+			{"read": "c", "to_state": "state_a_find_1_transition_delim", "write": "c", "action": "LEFT"},
+			{"read": "d", "to_state": "state_a_find_1_transition_delim", "write": "d", "action": "LEFT"},
+
+			{"read": "A", "to_state": "state_a_find_1_transition_delim", "write": "A", "action": "LEFT"},
+			{"read": "B", "to_state": "state_a_find_1_transition_delim", "write": "B", "action": "LEFT"},
+			{"read": "C", "to_state": "state_a_find_1_transition_delim", "write": "C", "action": "LEFT"},
+			{"read": "D", "to_state": "state_a_find_1_transition_delim", "write": "D", "action": "LEFT"},
+			{"read": "E", "to_state": "state_a_find_1_transition_delim", "write": "E", "action": "LEFT"},
+
+			{"read": "1", "to_state": "state_a_find_1_transition_delim", "write": "1", "action": "LEFT"},
+			{"read": ".", "to_state": "state_a_find_1_transition_delim", "write": ".", "action": "LEFT"},
+			{"read": "+", "to_state": "state_a_find_1_transition_delim", "write": "+", "action": "LEFT"},
+			{"read": "=", "to_state": "state_a_find_1_transition_delim", "write": "=", "action": "LEFT"},
+
+			{"read": "r", "to_state": "state_a_find_1_transition_delim", "write": "r", "action": "LEFT"},
+			{"read": "l", "to_state": "state_a_find_1_transition_delim", "write": "l", "action": "LEFT"},
+
+			{"read": "|", "to_state": "state_a_found_1_transition_delim", "write": "|", "action": "RIGHT"},
+			{"read": "X", "to_state": "state_a_find_1_transition_delim", "write": "X", "action": "LEFT"},
+			{"read": "H", "to_state": "state_a_find_1_transition_delim", "write": "H", "action": "LEFT"},
+			{"read": "Y", "to_state": "state_a_find_1_transition_delim", "write": "Y", "action": "LEFT"},
+			{"read": "*", "to_state": "state_a_find_1_transition_delim", "write": "*", "action": "LEFT"}
+		],
+		"state_a_find_1_transition_delim_skip1":
+		[
+			{"read": "a", "to_state": "state_a_find_1_transition_delim_skip1", "write": "a", "action": "LEFT"},
+			{"read": "b", "to_state": "state_a_find_1_transition_delim_skip1", "write": "b", "action": "LEFT"},
+			{"read": "c", "to_state": "state_a_find_1_transition_delim_skip1", "write": "c", "action": "LEFT"},
+			{"read": "d", "to_state": "state_a_find_1_transition_delim_skip1", "write": "d", "action": "LEFT"},
+
+			{"read": "A", "to_state": "state_a_find_1_transition_delim_skip1", "write": "A", "action": "LEFT"},
+			{"read": "B", "to_state": "state_a_find_1_transition_delim_skip1", "write": "B", "action": "LEFT"},
+			{"read": "C", "to_state": "state_a_find_1_transition_delim_skip1", "write": "C", "action": "LEFT"},
+			{"read": "D", "to_state": "state_a_find_1_transition_delim_skip1", "write": "D", "action": "LEFT"},
+			{"read": "E", "to_state": "state_a_find_1_transition_delim_skip1", "write": "E", "action": "LEFT"},
+
+			{"read": "1", "to_state": "state_a_find_1_transition_delim_skip1", "write": "1", "action": "LEFT"},
+			{"read": ".", "to_state": "state_a_find_1_transition_delim_skip1", "write": ".", "action": "LEFT"},
+			{"read": "+", "to_state": "state_a_find_1_transition_delim_skip1", "write": "+", "action": "LEFT"},
+			{"read": "=", "to_state": "state_a_find_1_transition_delim_skip1", "write": "=", "action": "LEFT"},
+
+			{"read": "r", "to_state": "state_a_find_1_transition_delim_skip1", "write": "r", "action": "LEFT"},
+			{"read": "l", "to_state": "state_a_find_1_transition_delim_skip1", "write": "l", "action": "LEFT"},
+
+			{"read": "|", "to_state": "state_a_find_1_transition_delim", "write": "|", "action": "LEFT"},
+			{"read": "X", "to_state": "state_a_find_1_transition_delim_skip1", "write": "X", "action": "LEFT"},
+			{"read": "H", "to_state": "state_a_find_1_transition_delim_skip1", "write": "H", "action": "LEFT"},
+			{"read": "Y", "to_state": "state_a_find_1_transition_delim_skip1", "write": "Y", "action": "LEFT"}
+		],
+		"state_a_found_1_transition_delim" :
+		[
+			{"read": "a", "to_state": "state_a_found_1_transition_delim_find_read", "write": "a", "action": "RIGHT"},
+			{"read": "b", "to_state": "state_a_find_1_transition_delim_skip1", "write": "b", "action": "LEFT"},
+			{"read": "c", "to_state": "state_a_find_1_transition_delim_skip1", "write": "c", "action": "LEFT"},
+			{"read": "d", "to_state": "state_a_find_1_transition_delim_skip1", "write": "d", "action": "LEFT"}
+		],
+		"state_a_found_1_transition_delim_find_read" :
+		[
+			{"read": "1", "to_state": "state_a_found_1_transition_delim_find_next_state", "write": "1", "action": "RIGHT"},
+			{"read": ".", "to_state": "state_a_find_1_transition_delim_skip1", "write": ".", "action": "LEFT"},
+			{"read": "+", "to_state": "state_a_find_1_transition_delim_skip1", "write": "+", "action": "LEFT"},
+			{"read": "=", "to_state": "state_a_find_1_transition_delim_skip1", "write": "=", "action": "LEFT"}
+		],
+		"state_a_found_1_transition_delim_find_next_state" :
+		[
+			{"read": "a", "to_state": "state_a_found_1_transition_delim_found_next_state_a", "write": "a", "action": "RIGHT"}
+		],
+		"state_a_found_1_transition_delim_found_next_state_a" :
+		[
+			{"read": "1", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1", "write": "1", "action": "RIGHT"}
+		],
+		"state_a_found_1_transition_delim_found_next_state_a_write_1" :
+		[
+			{"read": "r", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "r", "action": "RIGHT"}
+		],
+		"state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim" :
+		[
+			{"read": "a", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "a", "action": "LEFT"},
+			{"read": "b", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "b", "action": "LEFT"},
+			{"read": "c", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "c", "action": "LEFT"},
+			{"read": "d", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "d", "action": "LEFT"},
+
+			{"read": "A", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "A", "action": "LEFT"},
+			{"read": "B", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "B", "action": "LEFT"},
+			{"read": "C", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "C", "action": "LEFT"},
+			{"read": "D", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "D", "action": "LEFT"},
+			{"read": "E", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "E", "action": "LEFT"},
+
+			{"read": "1", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "1", "action": "LEFT"},
+			{"read": ".", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": ".", "action": "LEFT"},
+			{"read": "+", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "+", "action": "LEFT"},
+			{"read": "=", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "=", "action": "LEFT"},
+
+			{"read": "r", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "r", "action": "LEFT"},
+			{"read": "l", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "l", "action": "LEFT"},
+
+			{"read": "|", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "|", "action": "LEFT"},
+			{"read": "X", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "X", "action": "LEFT"},
+			{"read": "H", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_find_delim", "write": "H", "action": "LEFT"},
+			{"read": "Y", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_found_delim", "write": "Y", "action": "RIGHT"}
+		],
+		"state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_update_current_state_found_delim" :
+		[
+			{"read": "a", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "b", "action": "RIGHT"},
+			{"read": "b", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "b", "action": "RIGHT"},
+			{"read": "c", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "b", "action": "RIGHT"},
+			{"read": "d", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "b", "action": "RIGHT"}
+		],
+		"state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor" :
+		[
+			{"read": "a", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "a", "action": "RIGHT"},
+			{"read": "b", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "b", "action": "RIGHT"},
+			{"read": "c", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "c", "action": "RIGHT"},
+			{"read": "d", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "d", "action": "RIGHT"},
+
+			{"read": "A", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor_go_back", "write": "1", "action": "RIGHT"},
+			{"read": "B", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor_go_back", "write": ".", "action": "RIGHT"},
+			{"read": "C", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor_go_back", "write": "+", "action": "RIGHT"},
+			{"read": "D", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor_go_back", "write": "=", "action": "RIGHT"},
+			{"read": "E", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor_go_back", "write": "*", "action": "RIGHT"},
+
+			{"read": "1", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "1", "action": "RIGHT"},
+			{"read": ".", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": ".", "action": "RIGHT"},
+			{"read": "+", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "+", "action": "RIGHT"},
+			{"read": "=", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "=", "action": "RIGHT"},
+
+			{"read": "r", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "r", "action": "RIGHT"},
+			{"read": "l", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "l", "action": "RIGHT"},
+
+			{"read": "|", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "|", "action": "RIGHT"},
+			{"read": "X", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "X", "action": "RIGHT"},
+			{"read": "H", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "H", "action": "RIGHT"},
+			{"read": "Y", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "Y", "action": "RIGHT"},
+			{"read": "*", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor", "write": "*", "action": "RIGHT"}
+		],
+		"state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_find_saved_cursor_go_back" :
+		[
+			{"read": "a", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "a", "action": "LEFT"},
+			{"read": "b", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "b", "action": "LEFT"},
+			{"read": "c", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "c", "action": "LEFT"},
+			{"read": "d", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "d", "action": "LEFT"},
+
+			{"read": "A", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "A", "action": "LEFT"},
+			{"read": "B", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "B", "action": "LEFT"},
+			{"read": "C", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "C", "action": "LEFT"},
+			{"read": "D", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "D", "action": "LEFT"},
+			{"read": "E", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "E", "action": "LEFT"},
+
+			{"read": "1", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "1", "action": "LEFT"},
+			{"read": ".", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": ".", "action": "LEFT"},
+			{"read": "+", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "+", "action": "LEFT"},
+			{"read": "=", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "=", "action": "LEFT"},
+
+			{"read": "r", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "r", "action": "LEFT"},
+			{"read": "l", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "l", "action": "LEFT"},
+
+			{"read": "|", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "|", "action": "LEFT"},
+			{"read": "X", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "X", "action": "LEFT"},
+			{"read": "H", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "H", "action": "LEFT"},
+			{"read": "Y", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "Y", "action": "LEFT"},
+			{"read": "*", "to_state": "state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1", "write": "*", "action": "LEFT"}
+		],
+		"state_a_found_1_transition_delim_found_next_state_a_write_1_go_right_found_1" :
+		[
+			{"read": "1", "to_state": "save_cursor", "write": "1", "action": "RIGHT"},
+			{"read": ".", "to_state": "save_cursor", "write": "1", "action": "RIGHT"},
+			{"read": "+", "to_state": "save_cursor", "write": "1", "action": "RIGHT"},
+			{"read": "=", "to_state": "save_cursor", "write": "1", "action": "RIGHT"},
+
+			{"read": "*", "to_state": "save_cursor", "write": "1", "action": "RIGHT"}
+		]
+	}
+}
