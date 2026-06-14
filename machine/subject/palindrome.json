@@ -7,8 +7,8 @@
   "finals": ["HALT"],
   "transitions": {
     "scan_left": [ 
-      {"read": "a", "to_state": "rightmost_a", "write": "y", "action": "RIGHT"}, 
-      {"read": "b", "to_state": "no", "write": "y", "action": "RIGHT"}, 
+      {"read": "a", "to_state": "rightmost_a", "write": ".", "action": "RIGHT"}, 
+      {"read": "b", "to_state": "rightmost_b", "write": ".", "action": "RIGHT"}, 
       {"read": ".", "to_state": "HALT", "write": "y", "action": "RIGHT"} 
     ],
 
@@ -32,7 +32,7 @@
 
     "find_b": [
       {"read": "a", "to_state": "no", "write": "a", "action": "RIGHT"},
-      {"read": "b", "to_state": "leftmost", "write": ".", "action": "RIGHT"},
+      {"read": "b", "to_state": "leftmost", "write": ".", "action": "LEFT"},
       {"read": ".", "to_state": "yes", "write": ".", "action": "RIGHT"}
     ],
 
