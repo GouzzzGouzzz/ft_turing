@@ -1,4 +1,3 @@
-
 let main () =
   if Parser.parse_option () = true then (
     exit 1
