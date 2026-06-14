@@ -72,7 +72,7 @@ let rec simulate_rec (machine : Types.machine) (tape : Types.tape) curr_state =
     | Some transi -> 
       Print.print_current_tape_state curr_state tape transi machine.blank;
       let tape = if transi.action = Types.LEFT 
-          then move_left tape machine.blank transi.write 
+        then move_left tape machine.blank transi.write 
         else move_right tape machine.blank transi.write 
       in
         if (List.mem transi.to_state machine.finals)
