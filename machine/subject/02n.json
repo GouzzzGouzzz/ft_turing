@@ -8,16 +8,12 @@
   "transitions": {
     "even": [
       {"read": "0", "to_state": "odd", "write": ".", "action": "RIGHT"},
-      {"read": ".", "to_state": "HALT", "write": "y", "action": "RIGHT"},
-      {"read": "n", "to_state": "HALT", "write": "n", "action": "RIGHT"},
-      {"read": "y", "to_state": "HALT", "write": "y", "action": "RIGHT"}
+      {"read": ".", "to_state": "HALT", "write": "y", "action": "RIGHT"}
     ],
 
     "odd": [
       {"read": "0", "to_state": "even", "write": ".", "action": "RIGHT"},
-      {"read": ".", "to_state": "HALT", "write": "n", "action": "RIGHT"},
-      {"read": "n", "to_state": "HALT", "write": "n", "action": "RIGHT"},
-      {"read": "y", "to_state": "HALT", "write": "y", "action": "RIGHT"}
+      {"read": ".", "to_state": "HALT", "write": "n", "action": "RIGHT"}
     ]
   }
 }
