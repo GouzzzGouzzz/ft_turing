@@ -22,25 +22,27 @@ let create_tape str blank =
   } in tape
 
 let move_right (tape : Types.tape) blank write = 
+  let idx = tape.index + 1 in
   let new_tape : Types.tape =
   {
     head =  if (List.length tape.right) = 0 then blank else List.nth tape.right 0;
     left = tape.left @ [write]; 
     right = List.drop 1 tape.right;
-    index = tape.index + 1;
-    leftmost = if tape.rightmost - 24 <= tape.leftmost then tape.leftmost else tape.leftmost + 1;
-    rightmost = if tape.rightmost < tape.index + 1 then tape.rightmost + 1 else tape.rightmost
+    index = idx;
+    leftmost = if idx > tape.rightmost then tape.leftmost + 1 else tape.leftmost;
+    rightmost = if idx > tape.rightmost then tape.rightmost + 1 else tape.rightmost
   } in new_tape
 
 let move_left (tape : Types.tape) blank write = 
+  let idx = tape.index - 1 in
   let new_tape : Types.tape =
   {
     head = if (List.length tape.left) = 0 then blank else List.nth tape.left ((List.length tape.left) - 1);
     left = remove_last_elt tape.left;
     right = write :: tape.right;
-    index = tape.index - 1;
-    leftmost = if tape.leftmost > tape.index - 1 then tape.leftmost - 1 else tape.leftmost;
-    rightmost = if tape.leftmost + 24 <= tape.rightmost then tape.rightmost else tape.rightmost - 1
+    index = idx;
+    leftmost = if idx < tape.leftmost then tape.leftmost - 1 else tape.leftmost;
+    rightmost = if idx < tape.leftmost then tape.rightmost - 1 else tape.rightmost
   } in new_tape
 
 let rec get_transi_list (transitions : ( string * Types.transition list) list) curr_state = 
