@@ -1,5 +1,5 @@
 {
-  "name": "unary_add_no_loop",
+  "name": "unary_add",
   "alphabet": ["1", ".", "+", "="],
   "blank": ".",
   "states": ["scanright", "delone", "addone", "HALT"],
