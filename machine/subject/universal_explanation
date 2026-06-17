@@ -1,0 +1,38 @@
+Y -> Current State
+H -> Halt state
+
+a b c d -> available state identifiers
+
+1 . + = -> available alphabet identifier (to match unary_adder)
+A B C D -> alphabet cursor saver (replace the above chars to save cursor position)
+
+* -> blank character
+
+r l -> identify state action (RIGHT, LEFT)
+
+| -> state transition separator (goes on the left of the transition definition)
+
+X -> machine / tape separator
+
+Steps to do:
+
+find X
+replace char by cursor saver
+
+find current state
+find cursor
+find cursor + current state transition
+find write char
+find next_state
+find action
+find cursor
+write next char
+do action
+save cursor
+find current state separator
+save current state
+find halt state separator
+if current state == halt state, halt
+go back to find current state
+
+example machine: 'YaHd|a1a1rX1'
