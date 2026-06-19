@@ -35,4 +35,4 @@ find halt state separator
 if current state == halt state, halt
 go back to find current state
 
-example machine: 'YaHd|a1a1rX1'
+Unary adder machine: 'YaHd|a1a1r|a+a+r|a=b.l|b1c.l|b+d.l|c1c1l|c+d1lX111+11='
